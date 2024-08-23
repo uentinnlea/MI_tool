@@ -22,7 +22,7 @@ class FingerprintDescriptorGenerator:
         return df_maccs
 
     # RDKit fingerprints (Daylight Fingerprint, topological/path-based fingerprint)
-    def rdkit_fingerprit(self):
+    def rdkit_fingerprint(self):
         fp = [AllChem.RDKFingerprint(mol) for mol in self.mols]
         df_fp = pd.DataFrame(np.array(fp, int))
         return df_fp
@@ -84,5 +84,51 @@ class FingerprintDescriptorGenerator:
         # Return as DataFrame
         return pd.DataFrame(vectors)
 
-if __name__=="__main__":
-    pass
+if __name__ == "__main__":
+    # Get SMILES input from the user
+    smiles_input = input("Enter SMILES strings (separate multiple SMILES with a space): ")
+    smiles_list = smiles_input.split()
+
+    mols = [Chem.MolFromSmiles(smi) for smi in smiles_list]
+
+    generator = FingerprintDescriptorGenerator(mols)
+
+    # Ask user for the type of fingerprint or descriptor
+    print("Choose a type of fingerprint or descriptor to generate:")
+    print("1. MACCS Keys Fingerprint")
+    print("2. RDKit Fingerprint")
+    print("3. Morgan Fingerprint")
+    print("4. Atom Pair Fingerprint")
+    print("5. TPSA")
+    print("6. Mordred Descriptor")
+    print("7. RDKit Descriptor")
+    print("8. Mol2Vec")
+
+    choice = input("Enter the number corresponding to your choice: ")
+
+    if choice == '1':
+        print("MACCS Keys Fingerprint:")
+        print(generator.maccskeys_fingerprint())
+    elif choice == '2':
+        print("RDKit Fingerprint:")
+        print(generator.rdkit_fingerprint())
+    elif choice == '3':
+        print("Morgan Fingerprint:")
+        print(generator.morgan_fingerprint())
+    elif choice == '4':
+        print("Atom Pair Fingerprint:")
+        print(generator.atompair_fingerprint())
+    elif choice == '5':
+        print("TPSA:")
+        print(generator.tpsa())
+    elif choice == '6':
+        print("Mordred Descriptor:")
+        print(generator.mordred_descriptor())
+    elif choice == '7':
+        print("RDKit Descriptor:")
+        print(generator.rdkit_descriptor())
+    elif choice == '8':
+        print("Mol2Vec:")
+        print(generator.mol2vec())
+    else:
+        print("Invalid choice. Please run the script again and select a valid option.")
