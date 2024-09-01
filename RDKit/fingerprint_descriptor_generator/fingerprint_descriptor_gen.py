@@ -28,13 +28,13 @@ class FingerprintDescriptorGenerator:
         return df_fp
 
     # Morgan Fingerprint (Circular Fingerprint)
-    def morgan_fingerprit(self):
+    def morgan_fingerprint(self):
         morgan_fps = [AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=1024) for mol in self.mols]
         df_morgan = pd.DataFrame(np.array(morgan_fps, int))
         return df_morgan
 
     # Atom Pair Fingerprint
-    def atompair_fingerprit(self):
+    def atompair_fingerprint(self):
         atompair_fps = [GetAtomPairFingerprintAsBitVect(mol) for mol in self.mols]
         df_atompair = pd.DataFrame(np.array(atompair_fps, int))
         return df_atompair
