@@ -13,13 +13,13 @@ mult_arity: 2
 round: 0
 sb_trainable: true
 sp_trainable: true
-state_id: 7
+state_id: 11
 symbolic.funs_name.0:
-- - '0'
-  - '0'
+- - sin
+  - x^2
 symbolic.funs_name.1:
-- - '0'
-symbolic_enabled: false
+- - exp
+symbolic_enabled: true
 width:
 - - 2
   - 0
