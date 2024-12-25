@@ -9,8 +9,7 @@ from sklearn.base import BaseEstimator
 
 
 class GaussianProcessRegressor(BaseEstimator):
-    def __init__(self, model=None, kernel_name=None):
-        self.kernel_name_list = [LinearKernel.__name__, RBFKernel.__name__, MaternKernel.__name__]
+    def __init__(self, model=None, kernel_name=RBFKernel.__name__):
         self.model = model
 
         if kernel_name == MaternKernel.__name__:
@@ -34,6 +33,10 @@ class GaussianProcessRegressor(BaseEstimator):
         mll = ExactMarginalLogLikelihood(self.model.likelihood, self.model)
         fit_gpytorch_mll(mll)
         return self
+    
+    def get_kernel_names(self):
+        self.kernel_name_list = [LinearKernel.__name__, RBFKernel.__name__, MaternKernel.__name__]
+        return self.kernel_name_list
     
     def posterior_result(self, X: np.ndarray):
         posterior = self.model.posterior(torch.from_numpy(X))
